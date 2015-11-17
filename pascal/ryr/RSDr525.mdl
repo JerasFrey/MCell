@@ -1,0 +1,40 @@
+//
+sprintf(my_seed,"%05g",SEED)
+
+iterations = 50e3
+INCLUDE_FILE = "../initialization.mdl"
+INCLUDE_FILE = "parameters.mdl"
+/* Modifications in Parameters */
+	VDCC_number_presynaptic = 80
+	ca_conc_presynaptic_er = 250e-6
+	
+	n_Glu_neuron =  1 //2000
+	GluT_density_astrocyte = 0.1 //1000
+	//vary from -50 to 750 in steps of 50
+	ryr_distance = 525
+
+INCLUDE_FILE = "rxn_rate_constants.mdl"
+/* Modifications in Reaction Rate Constants */
+
+
+/* Output Folder */
+	fname = "RSDr525"
+	output_folder = "/home/subhadra/pascal/output/RyR/" &fname& "/s_" & my_seed
+
+/* Rates for P/Q-type Voltage Dependent Calcium Channels */
+/* From Bischoffberger et al., 2005, , Biophys. J.*/
+
+	k_VDCC_PQ_C01 = "../vdcc_dat/VDCC_PQ_C01_50hz_ppf.dat"
+	k_VDCC_PQ_C12 = "../vdcc_dat/VDCC_PQ_C12_50hz_ppf.dat"
+	k_VDCC_PQ_C23 = "../vdcc_dat/VDCC_PQ_C23_50hz_ppf.dat"
+	k_VDCC_PQ_C34 = "../vdcc_dat/VDCC_PQ_C34_50hz_ppf.dat"
+	k_VDCC_PQ_C43 = "../vdcc_dat/VDCC_PQ_C43_50hz_ppf.dat"
+	k_VDCC_PQ_C32 = "../vdcc_dat/VDCC_PQ_C32_50hz_ppf.dat"
+	k_VDCC_PQ_C21 = "../vdcc_dat/VDCC_PQ_C21_50hz_ppf.dat"
+	k_VDCC_PQ_C10 = "../vdcc_dat/VDCC_PQ_C10_50hz_ppf.dat"
+	k_VDCC_PQ_Ca = "../vdcc_dat/VDCC_PQ_Ca_50hz_ppf.dat"
+
+INCLUDE_FILE = "../transmitter_trigger_complex_mol_15d7_sudhof_v2.mdl"
+INCLUDE_FILE = "triggered_release.inc.mdl"
+INCLUDE_FILE = "rxn_outputRyrSerca.mdl"
+//INCLUDE_FILE = "viz_output.mdl"

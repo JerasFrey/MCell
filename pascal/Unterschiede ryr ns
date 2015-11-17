@@ -1,0 +1,42 @@
+Parameters: Serca is active
+	/* override above defaults */
+	
+	//serca_conc_tot = 0
+	//ca_conc_presynaptic_er = 0
+	//ryr_number_presynaptic = 0
+	
+
+triggered release NS contains
+ mGluR {DIFFUSION_CONSTANT_2D = D_mGluR CUSTOM_SPACE_STEP = 0.020}
+ mGluR.Glu {DIFFUSION_CONSTANT_2D = D_mGluR_Glu CUSTOM_SPACE_STEP = 0.020}
+ mGluR.Glu.Glu {DIFFUSION_CONSTANT_2D = D_mGluR_Glu CUSTOM_SPACE_STEP = 0.020}
+ mGluR.Glu.Gp {DIFFUSION_CONSTANT_2D = D_mGluR_Glu_Gp CUSTOM_SPACE_STEP = 0.020}
+ mGluR.Gp {DIFFUSION_CONSTANT_2D = D_mGluR_Gp CUSTOM_SPACE_STEP = 0.020}
+
+ Gp {DIFFUSION_CONSTANT_2D = D_Gp CUSTOM_SPACE_STEP = 0.020}
+ aGp {DIFFUSION_CONSTANT_2D = D_aGp CUSTOM_SPACE_STEP = 0.020}
+ PLC {DIFFUSION_CONSTANT_2D = D_PLC CUSTOM_SPACE_STEP = 0.020}
+ PLC.Ca {DIFFUSION_CONSTANT_2D = D_PLC_Ca CUSTOM_SPACE_STEP = 0.020}
+ PLC.Ca.aGp {DIFFUSION_CONSTANT_2D = D_PLC_Ca_aGp CUSTOM_SPACE_STEP = 0.020}
+ PIP2 {DIFFUSION_CONSTANT_2D = D_PIP2 CUSTOM_SPACE_STEP = 0.020}
+ PLC.aGp {DIFFUSION_CONSTANT_2D = D_PLC_aGp CUSTOM_SPACE_STEP = 0.020}
+ PLC.aGp.PIP2 {DIFFUSION_CONSTANT_2D = D_PLC_aGp_PIP2 CUSTOM_SPACE_STEP = 0.020}
+ PLC.Ca.aGp.PIP2 {DIFFUSION_CONSTANT_2D = D_PLC_Ca_aGp_PIP2 CUSTOM_SPACE_STEP = 0.020}
+ PLC.Ca.PIP2 {DIFFUSION_CONSTANT_2D = D_PLC_Ca_PIP2 CUSTOM_SPACE_STEP = 0.020}
+
+
+INCLUDE_FILE = "../transmitter_trigger_complex_rxn_sudhof_v2.mdl"
+but in ryr no INCLUDE_FILE = "../transmitter_trigger_complex_mol_15d7_sudhof_v2.mdl"
+
+
+No    Cae, + IP3R_666' -> IP3R_666' + Ca' [k_IP3R_Ca_flux] : IP3R_Ca_flux
+
+
+No /* IP3 Degradation */
+  IP3 -> NULL [k_IP3_degrade]
+
+
+
+Shivic India places
+Jaipur in Rajastan
+Jamun and Kashmeer

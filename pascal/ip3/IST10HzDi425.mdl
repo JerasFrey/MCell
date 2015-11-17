@@ -1,0 +1,48 @@
+//
+sprintf(my_seed,"%05g",SEED)
+
+iterations = 3000e3
+
+INCLUDE_FILE = "parameters.mdl"
+/* Modifications in Parameters */
+	VDCC_number_presynaptic = 80
+	ca_conc_presynaptic_er = 250e-6
+	
+	n_Glu_neuron = 2000
+	GluT_density_astrocyte = 1000
+	
+	ip3r_distance = 425
+
+
+INCLUDE_FILE = "rxn_rate_constants.mdl"
+/* Modifications in Reaction Rate Constants */
+
+
+/* Output Folder */
+	modelname = "IP3_T10Hz" // !create this directory manually for the checkpoint @ the output folder!
+	fname = "IST10HzDi425"
+	output_folder = "/storage/subhadra/pascal/output/" &modelname& "/" &fname& "/s_" & my_seed
+
+/* Creating checkpoint files */
+	CHECKPOINT_INFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
+	// .mcp stands for MCell check point :) (made it up on my own :P -Pascal)
+	CHECKPOINT_OUTFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
+	CHECKPOINT_ITERATIONS = 600e3
+
+/* Rates for P/Q-type Voltage Dependent Calcium Channels */
+/* From Bischoffberger et al., 2005, , Biophys. J.*/
+
+	k_VDCC_PQ_C01 = "../vdcc_dat/VDCC_PQ_C01_10hz_10s.dat"
+	k_VDCC_PQ_C12 = "../vdcc_dat/VDCC_PQ_C12_10hz_10s.dat"
+	k_VDCC_PQ_C23 = "../vdcc_dat/VDCC_PQ_C23_10hz_10s.dat"
+	k_VDCC_PQ_C34 = "../vdcc_dat/VDCC_PQ_C34_10hz_10s.dat"
+	k_VDCC_PQ_C43 = "../vdcc_dat/VDCC_PQ_C43_10hz_10s.dat"
+	k_VDCC_PQ_C32 = "../vdcc_dat/VDCC_PQ_C32_10hz_10s.dat"
+	k_VDCC_PQ_C21 = "../vdcc_dat/VDCC_PQ_C21_10hz_10s.dat"
+	k_VDCC_PQ_C10 = "../vdcc_dat/VDCC_PQ_C10_10hz_10s.dat"
+	k_VDCC_PQ_Ca = "../vdcc_dat/VDCC_PQ_Ca_10hz_10s.dat"
+
+INCLUDE_FILE = "triggered_release.inc.mdl"
+
+INCLUDE_FILE = "rxn_outputIP3Serca.mdl"
+//INCLUDE_FILE = "viz_output.mdl"
