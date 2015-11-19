@@ -22,11 +22,11 @@ def runAnalysis(dataDirName):
 	print "resultPath : ", resultPath
 
 	ns = analysis(dataPath, resultPath)
-	
+	'''
 	ns.avg_dat(inFile="/dat/ca.dat", outFile="/ca.dat")
 	ns.conc_calc(5, inFile="/ca.dat", outFile="/CaConc")
 	ns.avg_dat(inFile="/dat/rrp.dat", outFile="/rrp.dat")
-	'''	
+	
 	ns.avg_dat(inFile="/dat/vdcc_pq_ca_flux.dat", outFile="/vdccCaFlux.dat")
 	ns.fluxCurrent(inFile="/vdccCaFlux.dat", outFile="/vdccCaFluxRate.dat")
 	ns.avg_dat(inFile="/dat/pmca&leak_ca_flux.dat", outFile="/pmca_leak.dat")
@@ -38,7 +38,7 @@ def runAnalysis(dataDirName):
 	ns.avg_dat(inFile="/dat/ryr_ca_flux.dat", outFile="/ryrCaFlux.dat")
 	ns.avg_dat(inFile="/dat/ryr_mol.dat", outFile="/ryrMol.dat")
 	ns.fluxCurrent(inFile="/ryrCaFlux.dat", outFile="/ryrCaFluxRate.dat", line=2)
-	'''
+	
 	ns.avg_dat(inFile="/dat/ip3.dat", outFile="/ip3.dat")
 	ns.avg_dat(inFile="/dat/ip3_create.dat", outFile="/ip3Create.dat")
 	ns.avg_dat(inFile="/dat/ip3r_open.dat", outFile="/ip3rOpen.dat")
@@ -47,16 +47,16 @@ def runAnalysis(dataDirName):
 	#ns.avg_dat(inFile="/dat/mglur.dat", outFile="/mglur.dat")
 	#ns.avg_dat(inFile="/dat/plc.dat", outFile="/plc.dat")
 	#ns.avg_dat(inFile="/dat/glu.dat", outFile="/glu.dat")
-	
+	'''
 
 	# For PPF
 	'''
 	pls1 = 2.5
 	isi = 100#float(dataDirName.split("SI")[1].split("V")[0])
 	vdcc = 80#dataDirName.split("V")[1]
-	d = float(dataDirName.split("i")[1])
-	print d
-	ns.relppf([pls1, pls1+isi], vdcc, d)
+	dist = float(dataDirName.split("i")[1])
+	print dist
+	ns.relppf([pls1, pls1+isi], vdcc, dist)
 	'''
 	
 	# For PTP
@@ -64,7 +64,9 @@ def runAnalysis(dataDirName):
 	n = 4 # 5 Pulses
 	isi = 1000/float(s[1].split("Hz")[0])
 	ptd = 100
-	ns.relptp([n, isi, ptd])
+	dist = float(dataDirName.split("i")[1])
+	print dist
+	ns.relptp([n, isi, ptd], dist)
 	#ns.plotAll(dataDirName,colorScheme = 'white')
 	
 	'''
@@ -86,7 +88,7 @@ if __name__ == "__main__":
 	runAnalysis(v)
 	'''
 	#comment out 1 end
-	
+	'''
 	# Define an output queue
 	output = mp.Queue()
 	# Setup a list of processes that we want to run
@@ -97,18 +99,18 @@ if __name__ == "__main__":
 	# Exit the completed processes
 	for p in processes:
 		p.join()
-	
-	#comment 2 out
 	'''
+	#comment 2 out
+	
 	r = "/storage/subhadra/pascal/results/c_IP3_T10Hz/"
 	dfilename = 'IP3_T10Hz.dat'
-	dfile = open(r + dfilename, 'w')
-	dfile.write("#N00\tNs10\tN01\tN11\tN1\tN2\tNtot\tP00\tP10\tP01\tP11\tP1\tP2\tPPF\tISI(ms)\tVDCC\tDist\n#")
-	for i in range(17): dfile.write(str(i)+"\t")
-	dfile.write("\n\n")
-	dfile.close()
+	#dfile = open(r + dfilename, 'w')
+	#dfile.write("#N00\tNs10\tN01\tN11\tN1\tN2\tNtot\tP00\tP10\tP01\tP11\tP1\tP2\tPPF\tISI(ms)\tVDCC\tDist\n#")
+	#for i in range(17): dfile.write(str(i)+"\t")
+	#dfile.write("\n\n")
+	#dfile.close()
 	
 	for d in var:
 		os.system("cd " + r + "; cat " + d + "/result >> " + dfilename)
-	'''
+	
 	#comment out 2 end

@@ -1,0 +1,199 @@
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+from peaks import detect_peaks
+
+#Name the results-path, get all folders in the resultspath into a list
+modelname = "RP20V80"
+filename = "ryr_mol_avg.dat" # = file to be plotted
+resultsdir = "results/"+modelname+"/"
+
+modelfolders = os.listdir(resultsdir)
+modelfolders =[e for e in modelfolders if os.path.isdir(resultsdir+e)]
+if 'Plots' in modelfolders:
+	modelfolders.remove('Plots')
+
+if not os.path.exists(resultsdir+"Plots"):
+		os.makedirs(resultsdir+"Plots")
+
+plt.rcParams['figure.figsize']=8,5
+
+# smoothing
+def smooth(y, box_pts):
+    box = np.ones(box_pts)/box_pts
+    y_smooth = np.convolve(y, box, mode='same')
+    return y_smooth
+
+# These are the "Tableau 20" colors as RGB.    
+tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),    
+             (44, 160, 44), (152, 223, 138), (214, 39, 40), (255, 152, 150),    
+             (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),    
+             (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),    
+             (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]    
+  
+# Scale the RGB values to the [0, 1] range, which is the format matplotlib accepts.    
+for i in range(len(tableau20)):    
+    r, g, b = tableau20[i]    
+    tableau20[i] = (r / 255., g / 255., b / 255.)    
+
+'''
+#get filenames for first figure
+ca_avg_file = "ca_avg.dat"
+ca_avg_uncumu_file = "ca_avg_uncumu.dat"
+
+plt.figure(1)
+#subplotnr = str(len(modelfolders))+"1"
+#create a list, in which all columns (unpack = 1) of the respective ca_avg.dat files all over the different folders are appended to a sublist: [0][0] for 0st model, 0st column, [1][0] for first model, 0st column, ...
+ca_avg = []
+for i in range(len(modelfolders)):
+	ca_avg.append(np.genfromtxt(resultsdir+modelfolders[i]+"/"+ca_avg_file, dtype=float, unpack=1))
+
+#for the length of the appended list plot for each model (j) the 0st (time) vs the 1st (cummulated [C]) column: give the modelfoldername as a label to associate the line with the model
+plt.subplot(311)
+plt.title('ca_avg col1 (cummulative)')
+for j in range(len(ca_avg)):
+	plt.plot(ca_avg[j][0], ca_avg[j][1], label=modelfolders[j])
+plt.xlabel('time in s')
+plt.ylabel('[C]')
+#plot the legend for the graph
+plt.legend()
+
+plt.subplot(312)
+plt.title('ca_avg col2 (concentration)')
+for k in range(len(ca_avg)):
+	plt.plot(ca_avg[k][0], ca_avg[k][2], label=modelfolders[k])
+plt.xlabel('time in s')
+plt.ylabel('[C]')
+#plot the legend for the graph
+plt.legend()
+
+plt.subplot(313)
+ca_avg_uncumu = []
+for l in range(len(modelfolders)):
+	ca_avg_uncumu.append(np.genfromtxt(resultsdir+modelfolders[l]+"/"+ca_avg_uncumu_file, dtype=float, unpack=1))
+
+plt.title('ca_avg col1 (uncummulative)')
+for m in range(len(ca_avg_uncumu)):
+	plt.plot(ca_avg_uncumu[m][0], ca_avg_uncumu[m][1], label=modelfolders[m])
+plt.xlabel('time in s')
+plt.ylabel('[C]')
+#plot the legend for the graph
+plt.legend()
+'''
+
+
+plot_list = []
+
+for n in range(len(modelfolders)):
+	plot_list.append(np.genfromtxt(resultsdir+modelfolders[n]+'/'+filename, skip_header=1, unpack=1))
+	y_pos =  str(modelfolders[n])
+'''
+#difference between [1] and [2] = RyR Ca flux
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	y_pos = plot_list[o][2][-1]
+	plt.text(0.05, y_pos, modelfolders[o], color=tableau20[o%20])
+	plt.plot(plot_list[o][0], plot_list[o][2], color=tableau20[o%20])
+plt.title('RyR Ca Flux in '+modelname)
+plt.xlabel('Distance from VDCC; VDCC @ 350, AZ @ 0')
+plt.ylabel('N10+N11/# of simulations')
+#plt.ylim([0,1])
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+'P1_'+modelname+'.eps', dpi=300, format='eps')
+'''
+'''
+#RyR open
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	rownum = 6
+	titelname = 'ryr_mol_avg'
+	smoothed_val = smooth((plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14]),20)
+	y_pos = smoothed_val[-10]
+	plt.text(0.081, y_pos, modelfolders[o], color=tableau20[o%20])
+	plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
+plt.title('RyRI40V120_'+titelname+' row_'+str(rownum+1)+'+8+9+13+14+15_RyR_open '+modelname)
+plt.xlabel('Time in ms')
+plt.ylabel('')
+#plt.ylim([0,1])
+plt.xlim([0,0.095])
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'+8+9+13+14+15_RyR_open_'+modelname+'.eps', dpi=200, format='eps')
+'''
+
+#cumulative ca conc IP3 cluster
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	if modelfolders[o][-5] == '0':# or modelfolders[o][-1] == '5':
+		rownum = 6
+		titelname = 'ryr_open_all_every_2_VDCC_persp'
+		smoothed_val = (plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14])
+		ind = detect_peaks(smoothed_val, mph=0.5, mpd=200)#, show=True)
+		print ind
+		y_pos = smoothed_val[-10]
+		print len(smoothed_val)
+		#print plot_list[o][0][ind[0]]
+		plt.text(0.051, smoothed_val[-1], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=5)
+		plt.text(0.0045, smoothed_val[355], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=5)
+		plt.text(0.0245, smoothed_val[2349], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=5)
+		plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
+plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
+plt.xlabel('Time in ms')
+plt.ylabel('')
+#plt.ylim([0,1])
+plt.xlim([0,0.06])
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+'''
+#cumulative ca conc IP3 cluster
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	if modelfolders[o][-1] == '0':# or modelfolders[o][-1] == '5':
+		ind = detect_peaks(plot_list[o][1], mph=4, mpd=20)#, show=True)
+		print ind
+		#print modelfolders[o]
+		rownum = 1
+		titelname = 'CaConc_every_2'
+		smoothed_val = plot_list[o][rownum]
+		y_pos = smoothed_val[-10]
+		print plot_list[o][0][ind[0]]
+		plt.text(0.201, plot_list[o][1][-1], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
+		plt.text(plot_list[o][0][ind[0]]+0.0010, plot_list[o][1][ind[0]], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
+		plt.text(plot_list[o][0][ind[1]]+0.0010, plot_list[o][1][ind[1]], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
+		plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
+plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
+plt.xlabel('Time in ms')
+plt.ylabel('')
+#plt.ylim([0,1])
+plt.xlim([0,0.22])
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+'''
+'''
+#normal plotting - adapted for smoothing etc
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	if modelfolders[o][-1] == '0':# or modelfolders[o][-1] == '5':
+		#print modelfolders[o]
+		rownum = 1
+		titelname = 'ip3rCaFlux'
+		smoothed_val = smooth(plot_list[o][rownum],50)
+		y_pos = smoothed_val[-10]
+		plt.text(0.201, plot_list[o][1][-1], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
+		plt.plot(plot_list[o][0][:-25], smoothed_val[:-25], color=tableau20[o%20], linewidth=0.5)
+plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
+plt.xlabel('Time in ms')
+plt.ylabel('')
+#plt.ylim([0,1])
+plt.xlim([0,0.22])
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+'''
+
+
+#plot all graphs
+plt.show()

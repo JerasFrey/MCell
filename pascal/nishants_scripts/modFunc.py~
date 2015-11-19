@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-from numpy import *
-from pylab import *
+from numpy import *#
+from pylab import *#
 import os, sys
 
 class analysis:
@@ -143,12 +143,12 @@ class analysis:
 		print "done"
 
 	#	Get Vesicle Release Statistics for PTP
-	def relptp(self, conf, tc=0.02):
+	def relptp(self, conf, dist, tc=0.02):
 		n = conf[0]
 		isi = conf[1]
 		ptd = conf[2]
 		
-		self.ts = [i*isi for i in range(n)]
+		self.ts = [i*isi+100 for i in range(n)]
 		self.ts.append((n-1)*isi+ptd)
 		self.ts = [(i+2.5)/1000.0 for i in self.ts]
 		
@@ -171,7 +171,7 @@ class analysis:
 		os.system("cat " + self.dataPath + "/*/dat/rel.dat > " + self.resultPath + "/vesRel")
 		os.system("cat " + self.dataPath + "/*/dat/vdcc.async_*.dat > " + self.resultPath + "/asyncRel")
 		os.system("cat " + self.dataPath + "/*/dat/vdcc.sync_*.dat > " + self.resultPath + "/syncRel")
-		
+		nRel.append(dist)
 		#	Print Results
 		r = open(self.resultPath + '/result', 'w') 
 		savetxt(r,[nRel],fmt="%d",delimiter="\t")

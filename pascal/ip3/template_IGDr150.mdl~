@@ -1,7 +1,7 @@
 //
 sprintf(my_seed,"%05g",SEED)
 
-iterations = 3000e3
+iterations = 200e3
 
 INCLUDE_FILE = "parameters.mdl"
 /* Modifications in Parameters */
@@ -19,28 +19,28 @@ INCLUDE_FILE = "rxn_rate_constants.mdl"
 
 
 /* Output Folder */
-	modelname = "IP3" // !create this directory manually for the checkpoint @ the output folder!
+	modelname = "IP3_100" // !create this directory manually for the checkpoint @ the output folder!
 	fname = "IGDr150_template"
 	output_folder = "/home/pascal/Documents/IISER_Internship/MCell/Nishants_model/output/" &modelname& "/" &fname& "/s_" & my_seed
 
 /* Creating checkpoint files */
-	CHECKPOINT_INFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
+//	CHECKPOINT_INFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
 	// .mcp stands for MCell check point :) (made it up on my own :P -Pascal)
-	CHECKPOINT_OUTFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
-	CHECKPOINT_ITERATIONS = 600e3
+//	CHECKPOINT_OUTFILE = "/storage/subhadra/pascal/checkpoints/" &modelname& "/" &fname& "_s" &my_seed& ".mcp"
+//	CHECKPOINT_ITERATIONS = 600e3
 
 /* Rates for P/Q-type Voltage Dependent Calcium Channels */
 /* From Bischoffberger et al., 2005, , Biophys. J.*/
 
-	k_VDCC_PQ_C01 = "../vdcc_dat/VDCC_PQ_C01_10hz_10s.dat"
-	k_VDCC_PQ_C12 = "../vdcc_dat/VDCC_PQ_C12_10hz_10s.dat"
-	k_VDCC_PQ_C23 = "../vdcc_dat/VDCC_PQ_C23_10hz_10s.dat"
-	k_VDCC_PQ_C34 = "../vdcc_dat/VDCC_PQ_C34_10hz_10s.dat"
-	k_VDCC_PQ_C43 = "../vdcc_dat/VDCC_PQ_C43_10hz_10s.dat"
-	k_VDCC_PQ_C32 = "../vdcc_dat/VDCC_PQ_C32_10hz_10s.dat"
-	k_VDCC_PQ_C21 = "../vdcc_dat/VDCC_PQ_C21_10hz_10s.dat"
-	k_VDCC_PQ_C10 = "../vdcc_dat/VDCC_PQ_C10_10hz_10s.dat"
-	k_VDCC_PQ_Ca = "../vdcc_dat/VDCC_PQ_Ca_10hz_10s.dat"
+	k_VDCC_PQ_C01 = "../vdcc_dat/VDCC_PQ_C01_100ms_ppf.dat"
+	k_VDCC_PQ_C12 = "../vdcc_dat/VDCC_PQ_C12_100ms_ppf.dat"
+	k_VDCC_PQ_C23 = "../vdcc_dat/VDCC_PQ_C23_100ms_ppf.dat"
+	k_VDCC_PQ_C34 = "../vdcc_dat/VDCC_PQ_C34_100ms_ppf.dat"
+	k_VDCC_PQ_C43 = "../vdcc_dat/VDCC_PQ_C43_100ms_ppf.dat"
+	k_VDCC_PQ_C32 = "../vdcc_dat/VDCC_PQ_C32_100ms_ppf.dat"
+	k_VDCC_PQ_C21 = "../vdcc_dat/VDCC_PQ_C21_100ms_ppf.dat"
+	k_VDCC_PQ_C10 = "../vdcc_dat/VDCC_PQ_C10_100ms_ppf.dat"
+	k_VDCC_PQ_Ca = "../vdcc_dat/VDCC_PQ_Ca_100ms_ppf.dat"
 
 INCLUDE_FILE = "triggered_release.inc.mdl"
 

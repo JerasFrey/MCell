@@ -86,7 +86,7 @@ for i in {-50..300..50};do  sed -e 's|"fname = "IGDr150"|"/home/pascal|g' $i; do
 move from server ~ subhadra to /storage/
 rsync -aPr /home/subhadra/pascal/output/ /storage/subhadra/pascal/output
 
-rsync -aPr subhadra@192.168.1.244:/storage/subhadra/pascal/results/ /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/results/c_RI20V80/
+rsync -aPr subhadra@192.168.1.244:/storage/subhadra/pascal/results/c_IP3_100/ /home/pascal/Documents/IISER_Internship/MCell/Presynapse_MCell_Model/results/c_IP3_100/
 
 rsync -aPr subhadra@192.168.1.244:~/pascal/model/ /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/pascal
 

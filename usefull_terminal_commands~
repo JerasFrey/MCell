@@ -1,0 +1,92 @@
+for i in *;do if [[ $i == RSDr* ]]; then sed -i -e 's|INCLUDE_FILE = "viz|//INCLUDE_FILE = "viz|g' $i; fi; done
+
+#SED seperately (-i makes change permanent, try with only -e first!):
+sed -i -e 's|INCLUDE_FILE = "viz|//INCLUDE_FILE = "viz|g' filename
+
+for i in {122..222}; do echo $i; done
+for i in path/t/*; do echo $i; done 
+
+
+
+gedit RSDr000.mdl &
+
+ssh -X nishant@172.16.12.92
+
+gedit ~/.bash_aliases
+~/.bash_aliases
+
+source ~/.bashrc #shorter: instead of source: .
+. ~/.bashrc
+
+less for viewing
+
+
+crtl + l -> scroll down
+
+pwd: current path
+
+Directory folder size:
+sudo du -h --max-depth=1
+
+disc usage from home folder?
+df -h
+
+Delete a complete directory:
+rm -rf
+
+Count all folder:
+ls | wc
+
+show filesystem:
+stat -f -c %T /storage/subhadra/pascal/output/
+
+Alias arun for
+rsync -r nishant@172.16.12.92:~/output /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/output
+
+#Run multiple scenarios from same folder (here: different locations of ryr) with multiple seeds (to be inserted into terminal):
+for i in RSDr00*; do python seeds.py $i 1; done
+
+#Log on to terminal on nishants PC
+ssh pascal@192.168.8.66
+
+ rsync -aPr . pascal@192.168.8.66:~/
+
+#sed change directory with terminal
+for i in RSDr*;do  sed -e 's|"/home/nishant|"/home/pascal|g' $i; done
+
+#sed alone
+sed -e 's|"/home/nishant|"/home/pascal|g' RSDr000.mdl
+
+rsync -aPr /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/output/ pascal@192.168.8.66:~/output
+
+
+for i in RSDr*;do  sed -e 's|"/home/nishant|"/home/pascal|g' $i; done
+/home/pascal/Documents/IISER_Internship/MCell/Nishants_model
+/home/subhadra/pascal
+
+
+CLUSTER
+qstat -T
+qstat -f
+qstat -p (progress)
+#Check individual job arrays
+qstat -t 5554[] | head
+qstat -t 6478[250-750]
+for i in {6476..6480}; do qrls $i[]; done
+
+for i in {-50..300..50};do echo "IPDr$i"; done
+
+vim testsubj.sh (i to edit = insert, escape; q to quit)
+chmod 700 testsubj.sh
+./testsubj.sh
+
+for i in {-50..300..50};do  sed -e 's|"fname = "IGDr150"|"/home/pascal|g' $i; done
+
+
+move from server ~ subhadra to /storage/
+rsync -aPr /home/subhadra/pascal/output/ /storage/subhadra/pascal/output
+
+rsync -aPr subhadra@192.168.1.244:/storage/subhadra/pascal/results/c_IP3_T10Hz/ /home/pascal/Documents/IISER_Internship/MCell/Presynapse_MCell_Model/results/c_IP3_T10Hz/
+
+rsync -aPr subhadra@192.168.1.244:~/pascal/model/ /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/pascal
+

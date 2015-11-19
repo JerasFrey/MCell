@@ -90,7 +90,7 @@ if __name__ == "__main__":
 	runAnalysis(v)
 	'''
 	#comment out 1 end
-	
+	'''
 	# Define an output queue
 	output = mp.Queue()
 	# Setup a list of processes that we want to run
@@ -101,9 +101,9 @@ if __name__ == "__main__":
 	# Exit the completed processes
 	for p in processes:
 		p.join()
-	
-	#comment 2 out
 	'''
+	#comment 2 out
+	
 	r = "/storage/subhadra/pascal/results/c_IP3_100/"
 	dfilename = 'IP3_100.dat'
 	dfile = open(r + dfilename, 'w')
@@ -114,5 +114,5 @@ if __name__ == "__main__":
 	
 	for d in var:
 		os.system("cd " + r + "; cat " + d + "/result >> " + dfilename)
-	'''
+	
 	#comment out 2 end
