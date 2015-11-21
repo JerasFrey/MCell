@@ -1,17 +1,17 @@
 scrfile = "pascal/ip3/template_IGDr150.mdl"
-modelname = "IS100Di"
-modelfolder = "IP3_100"
+modelname = "IST10HzDi"
+modelfolder = "IP3_T10Hz"
 
 
 vdcc_number = "80"
 
-dst_range = [-400, -75, 25]
+dst_range = [-50, 750, 50]
 
 f = open(scrfile,'r')
 filedata = f.read()
 f.close
 
-for i in range(dst_range[0], dst_range[1]+25, dst_range[2]):
+for i in range(dst_range[0], dst_range[1]+dst_range[2], dst_range[2]):
 	fname_replace = 'fname = "'+modelname+str("%03d" %i)+'"'
 	newdata = filedata.replace('fname = "IGDr150_template"',fname_replace).replace("ip3r_distance = 150","ip3r_distance = "+str(i)).replace("VDCC_number_presynaptic = 80","VDCC_number_presynaptic = "+vdcc_number).replace('modelname = "IP3"','modelname = "'+modelfolder+'"').replace('output_folder = "/home/pascal/Documents/IISER_Internship/MCell/Nishants_model/output/"','output_folder = "/storage/subhadra/pascal/output/"')
 	trgfile = "pascal/ip3/" + modelname + str(i) + ".mdl"

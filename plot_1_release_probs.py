@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 
 #Name the results-path, get all folders in the resultspath into a list
-modelname = "RP20V120"
+modelname = "RP20V80"
 resultsdir = "results/"+modelname+"/"
 modelfolders = os.listdir(resultsdir)
 modelfolders =[e for e in modelfolders if os.path.isdir(resultsdir+e)]
@@ -197,20 +197,21 @@ for o in range(len(all_rels[0:1])):
 '''
 
 for n in range(len(modelfolders)):
-	sync_rel = np.genfromtxt(resultsdir+modelfolders[n]+"/all_rels/rel_sync.dat", usecols=0)
-	assync_rel = np.genfromtxt(resultsdir+modelfolders[n]+"/all_rels/rel_async.dat", usecols=0)
-	container = modelfolders[n] 
-	#print sync_rel
-	plt.figure(2)
-	n, bins, patches = plt.hist([sync_rel,assync_rel], 50, color=['r','g'], stacked=True, edgecolor = "none")
-	#plt.ylim([0,230])
-	plt.title('# of releases over time '+container)
-	plt.xlabel('time in ms')
-	plt.ylabel('# of releases (red = sync rel; green = async rel)')
-	plt.legend()
-	plt.savefig(resultsdir+'Plots/'+'Histogram '+container+'.eps', dpi=300, format='eps')
-	plt.close()
-	#plt.show()
+	if modelfolders[n][-5] == '0':# or modelfolders[o][-1] == '5': #-5 for my data, -1 for cluster data
+		sync_rel = np.genfromtxt(resultsdir+modelfolders[n]+"/all_rels/rel_sync.dat", usecols=0)
+		assync_rel = np.genfromtxt(resultsdir+modelfolders[n]+"/all_rels/rel_async.dat", usecols=0)
+		container = modelfolders[n] 
+		#print sync_rel
+		plt.figure(2)
+		n, bins, patches = plt.hist([sync_rel,assync_rel], 50, color=['r','g'], stacked=True, edgecolor = "none")
+		plt.ylim([0,85])
+		plt.title('# of releases over time '+container)
+		plt.xlabel('time in ms')
+		plt.ylabel('# of releases (red = sync rel; green = async rel)')
+		plt.legend()
+		#plt.savefig(resultsdir+'Plots/'+'Histogram '+container+'.png', dpi=300, format='png')
+		plt.close()
+		#plt.show()
 #hist([syncRelData[:,0],asyncRelData[:,0]], 50, color=['r','g'], stacked=True)
 
 

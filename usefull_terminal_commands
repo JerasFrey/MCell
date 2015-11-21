@@ -90,3 +90,14 @@ rsync -aPr subhadra@192.168.1.244:/storage/subhadra/pascal/results/c_IP3_100/ /h
 
 rsync -aPr subhadra@192.168.1.244:~/pascal/model/ /home/pascal/Documents/IISER_Internship/MCell/Nishants_model/pascal
 
+
+github
+
+git status
+git add .
+#deletes also: all
+git add --all 
+
+git commit -m "commit 2"
+#Push to origin (online) from master (PC)
+git push origin master

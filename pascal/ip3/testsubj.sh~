@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for i in {-50..750..25}
+for i in {-400..-75..25}
 
 do
-	echo IS100Di$i.mdl
-#	qsub -N IS100Di$i -v I=$i jryr.sh
+	echo IST10HzDi$i.mdl
+#	qsub -N IST10HzDi$i -v I=$i jryr.sh
 done

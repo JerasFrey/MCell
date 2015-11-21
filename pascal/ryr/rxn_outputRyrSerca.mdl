@@ -39,7 +39,7 @@ REACTION_DATA_OUTPUT {
 
 
 /*	SERCA PUMP */
-/*
+
 	{	COUNT[SERCA_X1, tripartite_synapse_model.tripartite_synapse.presynaptic_er],
 		COUNT[SERCA_X1A, tripartite_synapse_model.tripartite_synapse.presynaptic_er],
 		COUNT[SERCA_X2, tripartite_synapse_model.tripartite_synapse.presynaptic_er],
@@ -51,7 +51,7 @@ REACTION_DATA_OUTPUT {
 	{	COUNT[serca_y2_x2, tripartite_synapse_model.tripartite_synapse.presynaptic_er] : "SERCA_Ca_out_flux",
 		COUNT[serca_x2_y2, tripartite_synapse_model.tripartite_synapse.presynaptic_er] : "SERCA_Ca_in_flux"
 	} 	=> output_folder & "/dat/serca_ca_flux.dat"
-*/
+
 
 /*	RyR */
 	{	COUNT[RyRC1_L, WORLD],
@@ -101,13 +101,13 @@ REACTION_DATA_OUTPUT {
 	}	=> output_folder &"/dat/nmda_glu_bind.dat"
 */
 /*	PMCA and Leak */
-/*
+
 	{	COUNT[PMCA_Ca_flux_out, WORLD] - COUNT[PMCA_Ca_flux_in, WORLD] : "PMCAFlux",
 		COUNT[PMCA_Ca_leak_flux, WORLD] : "PMCAleakFlux"
 //		COUNT[PM_leak_Ca_flux, WORLD] : "PMleakFlux",
 //		COUNT[ER_leak_Ca_flux, WORLD] : "ERleakFlux" 
 	} => output_folder &"/dat/pmca&leak_ca_flux.dat"
-*/
+
 
 /*	Readily Releasable Pool (RRP)*/
 	{
@@ -174,7 +174,7 @@ REACTION_DATA_OUTPUT {
 //	{COUNT[Glu, WORLD] : "Glu"} => output_folder & "/dat/glu.dat"
 
 /*	Calbindin */
-/*
+
 	{	COUNT[calbindin.high0medium0, tripartite_synapse_model.tripartite_synapse.presynaptic] : "h0m0",
 		COUNT[calbindin.high0medium1, tripartite_synapse_model.tripartite_synapse.presynaptic] : "h0m1",
 		COUNT[calbindin.high0medium2, tripartite_synapse_model.tripartite_synapse.presynaptic] : "h0m2",
@@ -185,7 +185,7 @@ REACTION_DATA_OUTPUT {
 		COUNT[calbindin.high2medium1, tripartite_synapse_model.tripartite_synapse.presynaptic] : "h2m1",
 		COUNT[calbindin.high2medium2, tripartite_synapse_model.tripartite_synapse.presynaptic] : "h2m2"
 	}	=> output_folder & "/dat/calbindin_mol.dat"
-*/
+
 
 }
 

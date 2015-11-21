@@ -50,9 +50,11 @@ def smooth(y, box_pts):
 
 
 
-resultsdir = "results/RyR/"
+resultsdir = "results/RP20V80/"
 modelfolders = os.listdir(resultsdir)
 modelfolders = [e for e in modelfolders if os.path.isdir(resultsdir+e)]
+if 'Plots' in modelfolders:
+	modelfolders.remove('Plots')
 
 #outputdir = "output/RyR/"
 #outmodels = os.listdir(outputdir)

@@ -5,8 +5,9 @@ from peaks import detect_peaks
 
 #Name the results-path, get all folders in the resultspath into a list
 modelname = "RP20V80"
-filename = "ryr_mol_avg.dat" # = file to be plotted
+filename = "ca_avg_uncumu.dat" # = file to be plotted
 resultsdir = "results/"+modelname+"/"
+file_format = 'eps'
 
 modelfolders = os.listdir(resultsdir)
 modelfolders =[e for e in modelfolders if os.path.isdir(resultsdir+e)]
@@ -100,7 +101,7 @@ plt.xlabel('Distance from VDCC; VDCC @ 350, AZ @ 0')
 plt.ylabel('N10+N11/# of simulations')
 #plt.ylim([0,1])
 plt.legend()
-plt.savefig(resultsdir+'Plots/'+'P1_'+modelname+'.eps', dpi=300, format='eps')
+plt.savefig(resultsdir+'Plots/'+'P1_'+modelname+'.'+file_format, dpi=300, format=file_format)
 '''
 '''
 #RyR open
@@ -109,43 +110,45 @@ for o in range(len(plot_list)):
 	#plot_list
 	rownum = 6
 	titelname = 'ryr_mol_avg'
-	smoothed_val = smooth((plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14]),20)
-	y_pos = smoothed_val[-10]
+	y_value = smooth((plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14]),20)
+	y_pos = y_value[-10]
 	plt.text(0.081, y_pos, modelfolders[o], color=tableau20[o%20])
-	plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
+	plt.plot(plot_list[o][0], y_value, color=tableau20[o%20], linewidth=0.5)
 plt.title('RyRI40V120_'+titelname+' row_'+str(rownum+1)+'+8+9+13+14+15_RyR_open '+modelname)
 plt.xlabel('Time in ms')
 plt.ylabel('')
 #plt.ylim([0,1])
 plt.xlim([0,0.095])
 plt.legend()
-plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'+8+9+13+14+15_RyR_open_'+modelname+'.eps', dpi=200, format='eps')
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'+8+9+13+14+15_RyR_open_'+modelname+'.'+file_format, dpi=200, format=file_format)
 '''
 
-#cumulative ca conc IP3 cluster
+'''
+#Open RyRs
 plt.figure(2)
 for o in range(len(plot_list)):
 	#plot_list
 	if modelfolders[o][-5] == '0':# or modelfolders[o][-1] == '5':
 		rownum = 6
-		titelname = 'ryr_open_all_every_2_AZ_persp'
-		smoothed_val = (plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14])
-		ind = detect_peaks(smoothed_val, mph=0.5, mpd=200)#, show=True)
+		titelname = 'ryr_open_all_every_2_VDCC_persp'
+		y_value = (plot_list[o][rownum]+plot_list[o][7]+plot_list[o][8]+plot_list[o][12]+plot_list[o][13]+plot_list[o][14])
+		ind = detect_peaks(y_value, mph=0.5, mpd=200)#, show=True)
 		print ind
-		y_pos = smoothed_val[-10]
-		print len(smoothed_val)
+		y_pos = y_value[-10]
+		print len(y_value)
 		#print plot_list[o][0][ind[0]]
-		plt.text(0.051, smoothed_val[-1], modelfolders[o].split('r')[1].split('_')[0], color=tableau20[o%20], fontsize=5)
-		plt.text(0.0045, smoothed_val[355], modelfolders[o].split('r')[1].split('_')[0], color=tableau20[o%20], fontsize=5)
-		plt.text(0.0245, smoothed_val[2349], modelfolders[o].split('r')[1].split('_')[0], color=tableau20[o%20], fontsize=5)
-		plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
-plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
+		plt.text(0.051, y_value[-1], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=10)
+		plt.text(0.0045, y_value[355], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=10)
+		plt.text(0.0245, y_value[2349], int(modelfolders[o].split('r')[1].split('_')[0])-350, color=tableau20[o%20], fontsize=10)
+		plt.plot(plot_list[o][0], y_value, color=tableau20[o%20], linewidth=0.5)
+plt.title(modelname+'_'+titelname)#+' row_'+str(rownum+1))
 plt.xlabel('Time in ms')
-plt.ylabel('')
+plt.ylabel('# of open RyR')
 #plt.ylim([0,1])
 plt.xlim([0,0.06])
 plt.legend()
-plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.'+file_format, dpi=200, format=file_format)
+'''
 '''
 #cumulative ca conc IP3 cluster
 plt.figure(2)
@@ -157,43 +160,65 @@ for o in range(len(plot_list)):
 		#print modelfolders[o]
 		rownum = 1
 		titelname = 'CaConc_every_2'
-		smoothed_val = plot_list[o][rownum]
-		y_pos = smoothed_val[-10]
+		y_value = plot_list[o][rownum]
+		y_pos = y_value[-10]
 		print plot_list[o][0][ind[0]]
 		plt.text(0.201, plot_list[o][1][-1], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
 		plt.text(plot_list[o][0][ind[0]]+0.0010, plot_list[o][1][ind[0]], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
 		plt.text(plot_list[o][0][ind[1]]+0.0010, plot_list[o][1][ind[1]], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
-		plt.plot(plot_list[o][0], smoothed_val, color=tableau20[o%20], linewidth=0.5)
+		plt.plot(plot_list[o][0], y_value, color=tableau20[o%20], linewidth=0.5)
 plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
 plt.xlabel('Time in ms')
 plt.ylabel('')
 #plt.ylim([0,1])
 plt.xlim([0,0.22])
 plt.legend()
-plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.'+file_format, dpi=200, format=file_format)
 '''
+
 '''
 #normal plotting - adapted for smoothing etc
 plt.figure(2)
 for o in range(len(plot_list)):
 	#plot_list
-	if modelfolders[o][-1] == '0':# or modelfolders[o][-1] == '5':
+	if modelfolders[o][-5] == '0':# or modelfolders[o][-1] == '5': #-5 for my data, -1 for cluster data
 		#print modelfolders[o]
-		rownum = 1
-		titelname = 'ip3rCaFlux'
-		smoothed_val = smooth(plot_list[o][rownum],50)
-		y_pos = smoothed_val[-10]
-		plt.text(0.201, plot_list[o][1][-1], modelfolders[o].split('i')[1], color=tableau20[o%20], fontsize=5)
-		plt.plot(plot_list[o][0][:-25], smoothed_val[:-25], color=tableau20[o%20], linewidth=0.5)
-plt.title(modelname+'_'+titelname+' row_'+str(rownum+1)+' '+modelname)
+		rownum = 3
+		titelname = 'ca_avg_out_of_ER_every_2'
+		y_value = smooth(plot_list[o][rownum],50)
+		y_pos = y_value[-25]
+		plt.text(0.051, y_pos, modelfolders[o].split('r')[1].split('_')[0], color=tableau20[o%20], fontsize=10)#0.201 #IP3
+		plt.plot(plot_list[o][0][:-25], y_value[:-25], color=tableau20[o%20], linewidth=0.5)
+plt.title(modelname+'_'+titelname)#+' row_'+str(rownum+1))
 plt.xlabel('Time in ms')
 plt.ylabel('')
 #plt.ylim([0,1])
-plt.xlim([0,0.22])
+plt.xlim([0,0.06])# RyR#[0,0.22]) #IP3
 plt.legend()
-plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.eps', dpi=200, format='eps')
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.'+file_format, dpi=200, format=file_format)
 '''
-
+gnu = 0
+#normal plotting - w/o smoothing
+plt.figure(2)
+for o in range(len(plot_list)):
+	#plot_list
+	if modelfolders[o][-5] == '0':# or modelfolders[o][-1] == '5': #-5 for my data, -1 for cluster data
+		#print modelfolders[o]
+		rownum = 1
+		titelname = 'Suhita_ca'
+		y_value = plot_list[o][rownum]
+		y_pos = y_value[-1]
+		plt.text(0.051, y_pos, modelfolders[o].split('r')[1].split('_')[0], color=tableau20[o%20], fontsize=10)#0.201 #IP3  #0.051  #RyR ##split 'i' for IP3, 'r' for RyR  ##int(modelfolders[o].split('i')[1].split('_')[0])-350
+		plt.plot(plot_list[o][0]+gnu, y_value, color=tableau20[o%20], linewidth=0.5, label=modelfolders[o].split('r')[1].split('_')[0])
+		gnu=gnu+0.001
+plt.title(modelname+'_'+titelname)#+' row_'+str(rownum+1))
+plt.xlabel('time in ms')
+plt.ylabel('local Ca concentration')
+#plt.ylim([0,1])
+plt.xlim([0,0.06])#[0,0.06])# RyR  #[0,0.22]) #IP3
+plt.legend()
+plt.savefig(resultsdir+'Plots/'+titelname+'_r'+str(rownum+1)+'_'+modelname+'.'+file_format, dpi=200, format=file_format)
+#1 cubic micron -> cancel out all powers and stuff of avogardo -> divide # of molecules by volume -> micro moles per l
 
 #plot all graphs
 plt.show()

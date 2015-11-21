@@ -1,8 +1,8 @@
 scrfile = "pascal/ryr/RyR_template.mdl"
-modelfolder = "RP20V90"
+modelfolder = "RP20V160"
 modelname = modelfolder+"Dr"
 
-vdcc_number = "90"
+vdcc_number = "160"
 
 dst_range = [-50, 750, 50]
 
